@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -24,6 +26,7 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
+
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -33,11 +36,16 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# print(room.get("treasure"))
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player_1 = Player("Ted", room['outside'])
+
 
 # Write a loop that:
 #
@@ -45,7 +53,25 @@ room['treasure'].s_to = room['narrow']
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+
+
+i = 1
+while i:
+    print(player_1.current_room.name)
+    print(player_1.current_room.description)
+
+    value = print(input("Where do you want to go adventurer? "))
+
+    if value.lower() == 'q':
+        break
+
+    elif player_1.current_room == room['outside']:
+        if value.lower() == 'n':
+            player_1.room(room['foyer'])
+        elif value != 'n':
+            print("Sorry, wrong key pressed")
+
+        # If the user enters a cardinal direction, attempt to move to the room there.
+        # Print an error message if the movement isn't allowed.
+        #
+        # If the user enters "q", quit the game.

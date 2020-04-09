@@ -45,7 +45,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 player_1 = Player("Ted", room['outside'])
-
+print('Welcome player, ready for adventure? ')
 
 # Write a loop that:
 #
@@ -59,19 +59,47 @@ i = 1
 while i:
     print(player_1.current_room.name)
     print(player_1.current_room.description)
+    value = input(
+        "[n] for North, [s] for South, [w] for West, [e] for East, [q] to Quit ")
 
-    value = print(input("Where do you want to go adventurer? "))
-
+    # If the user enters "q", quit the game.
     if value.lower() == 'q':
         break
 
+     # If the user enters a cardinal direction, attempt to move to the room there.
     elif player_1.current_room == room['outside']:
         if value.lower() == 'n':
             player_1.room(room['foyer'])
         elif value != 'n':
             print("Sorry, wrong key pressed")
 
-        # If the user enters a cardinal direction, attempt to move to the room there.
-        # Print an error message if the movement isn't allowed.
-        #
-        # If the user enters "q", quit the game.
+    elif player_1.current_room == room['foyer']:
+        if value.lower() == 's':
+            player_1.room(room['outside'])
+        elif value.lower() == 'n':
+            player_1.room(room['overlook'])
+        elif value.lower() == 'e':
+            player_1.room(room['narrow'])
+        else:
+            print('Sorry, wrong key pressed')
+
+    elif player_1.current_room == room['overlook']:
+        if value.lower() == 's':
+            player_1.room(room['foyer'])
+        elif value.lower != 's':
+            print('Sorry, wrong key pressed')
+
+    elif player_1.current_room == room['narrow']:
+        if value.lower() == 'w':
+            player_1.room(room['foyer'])
+        elif value.lower() == 'n':
+            player_1.room(room['treasure'])
+        else:
+            print('Sorry, wrong key pressed')
+
+    elif player_1.current_room == room['treasure']:
+        if value.lower() == 's':
+            player_1.room(['narrow'])
+        elif value.lower() != 's':
+            # Print an error message if the movement isn't allowed.
+            print('Sorry, wrong key pressed')

@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 import textwrap
 
 # Declare all the rooms
@@ -9,14 +10,14 @@ room = {
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", ['torch']),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
@@ -37,7 +38,22 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 
-# print(room.get("treasure"))
+# room['foyer'].item = ['torch']
+
+torch = Item('Torch', "A torch")
+candle = Item('Candle', "A candle")
+bag = Item('Bag', 'A bag')
+brush = Item('Brush', 'A brush')
+boots = Item('Boots', 'Boots')
+
+print(torch)
+
+room['outside'].add_item(torch)
+room['foyer'].add_item(candle)
+room['foyer'].add_item(bag)
+room['narrow'].add_item(boots)
+room['treasure'].add_item(brush)
+
 
 #
 # Main
@@ -59,8 +75,9 @@ i = 1
 while i:
     print(player_1.current_room.name)
     print(player_1.current_room.description)
+    print(player_1.current_room.get_items())
     value = input(
-        "[n] for North, [s] for South, [w] for West, [e] for East, [q] to Quit ")
+        "[n] for North, [s] for South, [w] for West, [e] for East, [q] to Quit \n ")
 
     # If the user enters "q", quit the game.
     if value.lower() == 'q':
